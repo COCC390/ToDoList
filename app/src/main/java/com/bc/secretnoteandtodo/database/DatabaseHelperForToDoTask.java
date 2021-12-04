@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 
-import com.bc.secretnoteandtodo.database.model.Note;
 import com.bc.secretnoteandtodo.database.model.ToDo;
 
 import java.io.FileOutputStream;
@@ -19,22 +18,22 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class DatabaseHelper extends SQLiteOpenHelper {
-
-    private static final int VERSION = 1;
+public class DatabaseHelperForToDoTask extends SQLiteOpenHelper
+{
+    private static final int VERSION = 2;
     private static String DB_PATH = "";
     private static final String NAME = "Mobile";
-    private static final String NOTE_TABLE = "Note";
+    private static final String TODO_TASK_TABLE = "Todo";
     private static final String ID = "ID";
-    private static final String CONTENT = "Content";
+    private static final String TITLE = "Title";
+    private static final String STATUS = "Status";
 //    private static final String CREATE_TODO_TABLE = "CREATE TABLE " + TODO_TASK_TABLE + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TITLE + " TEXT," + STATUS + " INTEGER)";
 
     private final Context context;
 
     private SQLiteDatabase db;
 
-    public DatabaseHelper(Context context)
+    public DatabaseHelperForToDoTask(Context context)
     {
         super(context, NAME, null, VERSION);
 
@@ -107,7 +106,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (dbExist)
         {
         } else
-        {
+            {
             this.getReadableDatabase();
             try
             {
@@ -140,42 +139,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.setVersion(oldVersion);
-    }
-
     public void openDatabase()
     {
         db = this.getWritableDatabase();
     }
 
-    public void insertTask(Note note)
+    public void insertTask(ToDo task)
     {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CONTENT, note.getContent());
-        db.insert(NOTE_TABLE, null, contentValues);
+        contentValues.put(TITLE, task.getTitle());
+        contentValues.put(STATUS, 0);
+        db.insert(TODO_TASK_TABLE, null, contentValues);
     }
 
-    public List<Note> getAllTasks()
+    public List<ToDo> getAllTasks()
     {
-        List<Note> noteList = new ArrayList<>();
+        List<ToDo> tasksList = new ArrayList<>();
         SQLiteDatabase readDb = this.getReadableDatabase();
 
         Cursor cursor = null;
         readDb.beginTransaction();
         try
         {
-            cursor = db.query(NOTE_TABLE, null, null, null, null, null, null);
+            cursor = db.query(TODO_TASK_TABLE, null, null, null, null, null, null);
             if(cursor != null)
             {
                 if(cursor.moveToFirst())
                 {
                     do {
-                        Note note = new Note();
-                        note.setId(cursor.getInt(cursor.getColumnIndexOrThrow(ID)));
-                        note.setContent(cursor.getString(cursor.getColumnIndexOrThrow(CONTENT)));
-                        noteList.add(note);
+                        ToDo task = new ToDo();
+                        task.setId(cursor.getInt(cursor.getColumnIndexOrThrow(ID)));
+                        task.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
+                        task.setStatus(cursor.getInt(cursor.getColumnIndexOrThrow(STATUS)));
+                        tasksList.add(task);
                     }
                     while (cursor.moveToNext());
                 }
@@ -187,18 +183,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             assert cursor != null;
             cursor.close();
         }
-        return noteList;
+        return tasksList;
     }
 
-    public void updateNote(int id, String note)
+    public void updateStatus(int id, int status)
     {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CONTENT, note);
-        db.update(NOTE_TABLE, contentValues, ID + "=?",  new String[] {String.valueOf(id)});
+        contentValues.put(STATUS, status);
+        db.update(TODO_TASK_TABLE, contentValues, ID + "=?", new String[] {String.valueOf(id)});
     }
 
-    public void deleteNote(int id)
+    public void updateTask(int id, String task)
     {
-        db.delete(NOTE_TABLE, ID + "=?", new String[] {String.valueOf(id)});
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TITLE, task);
+        db.update(TODO_TASK_TABLE, contentValues, ID + "=?",  new String[] {String.valueOf(id)});
+    }
+
+    public void deleteTask(int id)
+    {
+        db.delete(TODO_TASK_TABLE, ID + "=?", new String[] {String.valueOf(id)});
     }
 }

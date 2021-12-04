@@ -6,30 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".view.AllToDo">
 
-    <include
-        layout="@layout/content_note"
-        android:background="#00DAC1" />
+    <TextView
+        android:id="@+id/tvTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Tasks"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="30sp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvNote"
+        android:id="@+id/rvTasks"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTasks"
         android:nestedScrollingEnabled="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--    android:id="@+id/fab"-->
-<!--    android:layout_width="wrap_content"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:layout_gravity="bottom|center"-->
-<!--    android:layout_margin="16dp"-->
-<!--    android:contentDescription="TODO"-->
-<!--    app:srcCompat="@drawable/ic_add_white_24dp"-->
-<!--    tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"-->
-<!--    />-->
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabToDo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -42,7 +40,7 @@
         app:srcCompat="@drawable/ic_add_white_24dp" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_toDoList"
+        android:id="@+id/btn_note"
         android:background="@drawable/btn_shape"
         android:layout_width="58dp"
         android:layout_height="58dp"
@@ -56,7 +54,7 @@
         android:minWidth="0dp"
         android:text=""
         app:backgroundTint="@color/teal_200"
-        app:icon="@drawable/todoiconbutton"
+        app:icon="@drawable/note"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         android:layout_alignParentBottom="true"
@@ -82,6 +80,5 @@
         app:iconPadding="0dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"/>
-
 
 </RelativeLayout>

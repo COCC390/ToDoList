@@ -3,18 +3,18 @@
     android:layout_height="wrap_content">
 
     <EditText
-        android:id="@+id/etNewNote"
+        android:id="@+id/etNewTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:hint="INPUT NOTE" />
+        android:hint="CREATE NEW TASK" />
 
     <Button
-        android:id="@+id/btnCreateNewNote"
+        android:id="@+id/btnCreateNewTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etNewNote"
+        android:layout_below="@+id/etNewTask"
         android:layout_alignParentEnd="true"
         android:text="SAVE"
         android:textSize="16sp"

@@ -13,14 +13,15 @@
         android:layout_height="wrap_content"
         android:padding = "8dp">
 
-        <TextView
-            android:id="@+id/noteTextView"
+        <CheckBox
+            android:id="@+id/todoCheck"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            tool:text = "This is an example for new note, to create new note"
+            tool:text = "This is an example for new task, to create new task"
             android:paddingStart="8dp"
             android:buttonTint="@color/black" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
+
