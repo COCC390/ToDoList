@@ -56,6 +56,7 @@ public class CreateNewTask extends BottomSheetDialogFragment
         etNewTask = getView().findViewById(R.id.etNewTask);
         btnNewTask = getView().findViewById(R.id.btnCreateNewTask);
 
+
         boolean isUpdate = false;
 
         final Bundle bundle = getArguments();
@@ -64,7 +65,9 @@ public class CreateNewTask extends BottomSheetDialogFragment
             isUpdate = true;
             String task = bundle.getString("task");
             etNewTask.setText(task);
+
             assert task != null;
+
             if(task.length() > 0)
             {
                 btnNewTask.setTextColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
@@ -103,16 +106,19 @@ public class CreateNewTask extends BottomSheetDialogFragment
         boolean finalIsUpdate = isUpdate;
         btnNewTask.setOnClickListener(new View.OnClickListener()
         {
+
             @Override
             public void onClick(View v)
             {
                 String text = etNewTask.getText().toString();
                 if(finalIsUpdate)
                 {
+
                     db.updateTask(bundle.getInt("id"), text);
                 }
                 else
                 {
+
                     ToDo todoTask = new ToDo();
                     todoTask.setTitle(text);
                     todoTask.setStatus(0);

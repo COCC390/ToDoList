@@ -27,6 +27,7 @@ import com.bc.secretnoteandtodo.database.DatabaseHelper;
 import com.bc.secretnoteandtodo.database.DatabaseHelperForToDoTask;
 import com.bc.secretnoteandtodo.database.model.Note;
 import com.bc.secretnoteandtodo.utils.DialogCloseListener;
+
 import com.bc.secretnoteandtodo.utils.MyDividerItemDecoration;
 import com.bc.secretnoteandtodo.utils.RecyclerTouchListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,6 +38,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class AllNotes extends AppCompatActivity implements View.OnClickListener, DialogCloseListener {
+
     private Button btnAccount, btnToDo;
     private FloatingActionButton fab;
     private NotesAdapter notesAdapter;
@@ -77,7 +79,7 @@ public class AllNotes extends AppCompatActivity implements View.OnClickListener,
         notesList = db.getAllNotes();
         Collections.reverse(notesList);
         notesAdapter.setNotes(notesList);
-//        LoadNote();
+
 
         btnToDo.setOnClickListener(this);
         btnAccount.setOnClickListener(this);
@@ -116,6 +118,7 @@ public class AllNotes extends AppCompatActivity implements View.OnClickListener,
        {
             CreateNewNote.newInstance().show(getSupportFragmentManager(), CreateNewNote.TAG);
             LoadNote();
+
        }
        if(view.getId() == R.id.btn_account)
        {
@@ -143,4 +146,5 @@ public class AllNotes extends AppCompatActivity implements View.OnClickListener,
         notesAdapter.setNotes(notesList);
         notesAdapter.notifyDataSetChanged();
     }
+
 }

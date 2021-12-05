@@ -28,6 +28,7 @@ public class DatabaseHelperForToDoTask extends SQLiteOpenHelper
     private static final String TITLE = "Title";
     private static final String STATUS = "Status";
 
+
     private final Context context;
 
     private SQLiteDatabase db;
@@ -93,12 +94,6 @@ public class DatabaseHelperForToDoTask extends SQLiteOpenHelper
         myInput.close();
     }
 
-//    public void openDatabase() throws SQLException
-//    {
-//        String myPath = DB_PATH + NAME;
-//        db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-//    }
-
     public void createDataBase() throws IOException
     {
         boolean dbExist = checkDataBase();
@@ -121,11 +116,13 @@ public class DatabaseHelperForToDoTask extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
+
         if (newVersion > oldVersion) {
             try {
                 copyDataBase();
