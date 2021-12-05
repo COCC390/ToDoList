@@ -95,11 +95,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         myInput.close();
     }
 
-    public void openDataBase() throws SQLException
-    {
-        String myPath = DB_PATH + NAME;
-        db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-    }
 
     public void createDataBase() throws IOException
     {
@@ -150,14 +145,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
     }
 
-    public void insertTask(Note note)
+    public void insertNote(Note note)
+
     {
         ContentValues contentValues = new ContentValues();
         contentValues.put(CONTENT, note.getContent());
         db.insert(NOTE_TABLE, null, contentValues);
     }
 
-    public List<Note> getAllTasks()
+
+    public List<Note> getAllNotes()
+
     {
         List<Note> noteList = new ArrayList<>();
         SQLiteDatabase readDb = this.getReadableDatabase();

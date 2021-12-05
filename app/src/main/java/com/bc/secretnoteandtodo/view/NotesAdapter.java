@@ -80,7 +80,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
         Note note = noteList.get(position);
         Bundle bundle = new Bundle();
         bundle.putInt("id", note.getId());
-        bundle.putString("content", note.getContent());
+
+        bundle.putString("note", note.getContent());
+
         CreateNewNote fragment = new CreateNewNote();
         fragment.setArguments(bundle);
         fragment.show(allNotesActivity.getSupportFragmentManager(), CreateNewNote.TAG);

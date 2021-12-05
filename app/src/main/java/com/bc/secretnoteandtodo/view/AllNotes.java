@@ -26,6 +26,8 @@ import com.bc.secretnoteandtodo.R;
 import com.bc.secretnoteandtodo.database.DatabaseHelper;
 import com.bc.secretnoteandtodo.database.DatabaseHelperForToDoTask;
 import com.bc.secretnoteandtodo.database.model.Note;
+import com.bc.secretnoteandtodo.utils.DialogCloseListener;
+
 import com.bc.secretnoteandtodo.utils.MyDividerItemDecoration;
 import com.bc.secretnoteandtodo.utils.RecyclerTouchListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,7 +37,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AllNotes extends AppCompatActivity implements View.OnClickListener {
+public class AllNotes extends AppCompatActivity implements View.OnClickListener, DialogCloseListener {
+
     private Button btnAccount, btnToDo;
     private FloatingActionButton fab;
     private NotesAdapter notesAdapter;
@@ -73,10 +76,10 @@ public class AllNotes extends AppCompatActivity implements View.OnClickListener 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerTouchListener(notesAdapter));
         itemTouchHelper.attachToRecyclerView(rvNotes);
 
-        notesList = db.getAllTasks();
+        notesList = db.getAllNotes();
         Collections.reverse(notesList);
         notesAdapter.setNotes(notesList);
-        LoadNote();
+
 
         btnToDo.setOnClickListener(this);
         btnAccount.setOnClickListener(this);
@@ -89,7 +92,7 @@ public class AllNotes extends AppCompatActivity implements View.OnClickListener 
         notesAdapter = new NotesAdapter(db, this);
         rvNotes.setAdapter(notesAdapter);
 
-        notesList = db.getAllTasks();
+        notesList = db.getAllNotes();
         Collections.reverse(notesList);
         notesAdapter.setNotes(notesList);
     }
@@ -114,6 +117,8 @@ public class AllNotes extends AppCompatActivity implements View.OnClickListener 
        if(view.getId() == R.id.fab)
        {
             CreateNewNote.newInstance().show(getSupportFragmentManager(), CreateNewNote.TAG);
+            LoadNote();
+
        }
        if(view.getId() == R.id.btn_account)
        {
@@ -132,4 +137,14 @@ public class AllNotes extends AppCompatActivity implements View.OnClickListener 
             noNotesView.setVisibility(View.VISIBLE);
         }
     }
+
+    @Override
+    public void handleDialogClose(DialogInterface dialogInterface)
+    {
+        notesList = db.getAllNotes();
+        Collections.reverse(notesList);
+        notesAdapter.setNotes(notesList);
+        notesAdapter.notifyDataSetChanged();
+    }
+
 }

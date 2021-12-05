@@ -27,7 +27,7 @@ public class DatabaseHelperForToDoTask extends SQLiteOpenHelper
     private static final String ID = "ID";
     private static final String TITLE = "Title";
     private static final String STATUS = "Status";
-//    private static final String CREATE_TODO_TABLE = "CREATE TABLE " + TODO_TASK_TABLE + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TITLE + " TEXT," + STATUS + " INTEGER)";
+
 
     private final Context context;
 
@@ -94,12 +94,6 @@ public class DatabaseHelperForToDoTask extends SQLiteOpenHelper
         myInput.close();
     }
 
-    public void openDataBase() throws SQLException
-    {
-        String myPath = DB_PATH + NAME;
-        db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-    }
-
     public void createDataBase() throws IOException
     {
         boolean dbExist = checkDataBase();
@@ -122,14 +116,13 @@ public class DatabaseHelperForToDoTask extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-//        db.execSQL(CREATE_TODO_TABLE);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-//        db.execSQL("DROP TABLE IF EXISTS " + TODO_TASK_TABLE);
-//        onCreate(db);
+
         if (newVersion > oldVersion) {
             try {
                 copyDataBase();
