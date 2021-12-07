@@ -10,11 +10,9 @@
 <!--        layout="@layout/content_note"-->
 <!--        android:background="#00DAC1" />-->
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvNote"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:nestedScrollingEnabled="true"

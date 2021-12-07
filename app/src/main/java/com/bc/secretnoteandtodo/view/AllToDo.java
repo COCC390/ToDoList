@@ -1,9 +1,7 @@
 package com.bc.secretnoteandtodo.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.recyclerview.widget.ItemTouchHelper;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,9 +17,7 @@ import com.bc.secretnoteandtodo.R;
 import com.bc.secretnoteandtodo.database.DatabaseHelperForToDoTask;
 import com.bc.secretnoteandtodo.database.model.ToDo;
 import com.bc.secretnoteandtodo.utils.DialogCloseListener;
-
 import com.bc.secretnoteandtodo.utils.ToDoRecyclerTouchListener;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
@@ -39,21 +35,23 @@ public class AllToDo extends AppCompatActivity implements View.OnClickListener, 
     private List<ToDo> toDoTasksList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_to_do);
         getSupportActionBar().hide();
 
         db = new DatabaseHelperForToDoTask(this);
-        db.openDatabase();
+
         try {
             db.createDataBase();
         } catch (IOException e)
         {
             e.printStackTrace();
         }
+        db.openDatabase();
 
         LinkToView();
+
+//        toDoTasksList = new ArrayList<>();
 
         rvTasks.setLayoutManager(new LinearLayoutManager(this));
         toDoTasksAdapter = new ToDoTasksAdapter(db, this);
@@ -65,6 +63,7 @@ public class AllToDo extends AppCompatActivity implements View.OnClickListener, 
         toDoTasksList = db.getAllTasks();
         Collections.reverse(toDoTasksList);
         toDoTasksAdapter.setTasks(toDoTasksList);
+//        LoadTask();
 
         btnNote.setOnClickListener(this);
         btnAccount.setOnClickListener(this);
@@ -79,6 +78,16 @@ public class AllToDo extends AppCompatActivity implements View.OnClickListener, 
         floatingActionButton = findViewById(R.id.fabToDo);
     }
 
+//    private void LoadTask()
+//    {
+//        rvTasks.setLayoutManager(new LinearLayoutManager(this));
+//        toDoTasksAdapter = new ToDoTasksAdapter(db, this);
+//        rvTasks.setAdapter(toDoTasksAdapter);
+//
+//        toDoTasksList = db.getAllTasks();
+//        Collections.reverse(toDoTasksList);
+//        toDoTasksAdapter.setTasks(toDoTasksList);
+//    }
 
     @Override
     public void onClick(View v)

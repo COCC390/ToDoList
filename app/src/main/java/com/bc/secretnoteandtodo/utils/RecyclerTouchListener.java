@@ -20,7 +20,6 @@ import com.bc.secretnoteandtodo.R;
 import com.bc.secretnoteandtodo.view.NotesAdapter;
 import com.bc.secretnoteandtodo.view.ToDoTasksAdapter;
 
-
 public class RecyclerTouchListener extends ItemTouchHelper.SimpleCallback
 {
     private NotesAdapter notesAdapter;
@@ -45,9 +44,7 @@ public class RecyclerTouchListener extends ItemTouchHelper.SimpleCallback
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(notesAdapter.getContext());
             builder.setTitle("Delete Note");
-
             builder.setMessage("Are you sure you want to delete this note");
-
             builder.setPositiveButton("Confirm",
                     new DialogInterface.OnClickListener()
                     {

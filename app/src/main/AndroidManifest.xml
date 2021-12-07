@@ -10,10 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SecretNoteAndToDo">
         <activity
+            android:name=".Register"
+            android:exported="false" />
+        <activity
             android:name=".view.AllToDo"
             android:exported="false" />
         <activity
             android:name=".view.AllNotes"
+            android:exported="false" />
+        <activity
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

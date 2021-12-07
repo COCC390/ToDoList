@@ -66,9 +66,7 @@ public class CreateNewNote extends BottomSheetDialogFragment
             isUpdate = true;
             String note = bundle.getString("note");
             etNewNote.setText(note);
-
             assert note != null;
-
             if(note.length() > 0)
             {
                 etNewNote.setTextColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
@@ -114,7 +112,6 @@ public class CreateNewNote extends BottomSheetDialogFragment
                 String text = etNewNote.getText().toString();
                 if(finalIsUpdate)
                 {
-
                     db.updateNote(bundle.getInt("id"), text);
                 }
                 else
