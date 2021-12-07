@@ -8,10 +8,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
+import android.util.Log;
 
 import com.bc.secretnoteandtodo.database.model.Note;
 import com.bc.secretnoteandtodo.database.model.ToDo;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final int VERSION = 1;
     private static String DB_PATH = "";
-    private static final String NAME = "Mobile";
+    private static final String NAME = "Mobile.db";
     private static final String NOTE_TABLE = "Note";
     private static final String ID = "ID";
     private static final String CONTENT = "Content";
@@ -66,7 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         try
         {
             String myPath = DB_PATH + NAME;
-            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
         }
         catch (SQLiteException e)
         {
@@ -81,11 +83,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void copyDataBase() throws IOException
     {
         InputStream myInput = context.getAssets().open(NAME);
+
         String outFileName = DB_PATH + NAME;
+
+        File file = new File(outFileName);
+//        if(!file.exists())
+//        {
+//            Log.d("checkexist", "notok");
+//        }
+
         OutputStream myOutput = new FileOutputStream(outFileName);
 
         byte[] buffer = new byte[1024];
         int length;
+
         while ((length = myInput.read(buffer)) > 0)
         {
             myOutput.write(buffer, 0, length);
@@ -94,7 +105,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         myOutput.close();
         myInput.close();
     }
-
 
     public void createDataBase() throws IOException
     {
@@ -106,6 +116,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             this.getReadableDatabase();
             try
             {
+                Log.d("createdatabase", "ok");
                 copyDataBase();
             }
             catch (IOException e)
@@ -118,47 +129,43 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-//        db.execSQL(CREATE_TODO_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-//        db.execSQL("DROP TABLE IF EXISTS " + TODO_TASK_TABLE);
-//        onCreate(db);
-        if (newVersion > oldVersion) {
-            try {
-                copyDataBase();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        if (newVersion > oldVersion) {
+//            try {
+//                copyDataBase();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
-    @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.setVersion(oldVersion);
-    }
+//    @Override
+//    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+//        db.setVersion(oldVersion);
+//    }
 
     public void openDatabase()
     {
+//        String path = DB_PATH + NAME;
+//        db = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
         db = this.getWritableDatabase();
     }
 
     public void insertNote(Note note)
-
     {
         ContentValues contentValues = new ContentValues();
         contentValues.put(CONTENT, note.getContent());
         db.insert(NOTE_TABLE, null, contentValues);
     }
 
-
     public List<Note> getAllNotes()
-
     {
         List<Note> noteList = new ArrayList<>();
-        SQLiteDatabase readDb = this.getReadableDatabase();
+        SQLiteDatabase readDb = this.getWritableDatabase();
 
         Cursor cursor = null;
         readDb.beginTransaction();

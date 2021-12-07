@@ -27,7 +27,6 @@ import com.bc.secretnoteandtodo.database.DatabaseHelper;
 import com.bc.secretnoteandtodo.database.DatabaseHelperForToDoTask;
 import com.bc.secretnoteandtodo.database.model.Note;
 import com.bc.secretnoteandtodo.utils.DialogCloseListener;
-
 import com.bc.secretnoteandtodo.utils.MyDividerItemDecoration;
 import com.bc.secretnoteandtodo.utils.RecyclerTouchListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -38,7 +37,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class AllNotes extends AppCompatActivity implements View.OnClickListener, DialogCloseListener {
-
     private Button btnAccount, btnToDo;
     private FloatingActionButton fab;
     private NotesAdapter notesAdapter;
@@ -56,13 +54,14 @@ public class AllNotes extends AppCompatActivity implements View.OnClickListener,
         getSupportActionBar().hide();
 
         db = new DatabaseHelper(this);
-        db.openDatabase();
-        try {
+        try
+        {
             db.createDataBase();
         } catch (IOException e)
         {
             e.printStackTrace();
         }
+        db.openDatabase();
 
         LinkToView();
 
@@ -79,7 +78,7 @@ public class AllNotes extends AppCompatActivity implements View.OnClickListener,
         notesList = db.getAllNotes();
         Collections.reverse(notesList);
         notesAdapter.setNotes(notesList);
-
+//        LoadNote();
 
         btnToDo.setOnClickListener(this);
         btnAccount.setOnClickListener(this);
@@ -118,13 +117,12 @@ public class AllNotes extends AppCompatActivity implements View.OnClickListener,
        {
             CreateNewNote.newInstance().show(getSupportFragmentManager(), CreateNewNote.TAG);
             LoadNote();
-
        }
        if(view.getId() == R.id.btn_account)
        {
-             // use this to switch to account class!!!
-//           Intent intent = new Intent(AllNotes.this, Account.class);
-//           startActivity(intent);
+//              use this to switch to account class!!!
+           Intent intent = new Intent(AllNotes.this, MainActivity.class);
+           startActivity(intent);
        }
     }
 
@@ -146,5 +144,4 @@ public class AllNotes extends AppCompatActivity implements View.OnClickListener,
         notesAdapter.setNotes(notesList);
         notesAdapter.notifyDataSetChanged();
     }
-
 }

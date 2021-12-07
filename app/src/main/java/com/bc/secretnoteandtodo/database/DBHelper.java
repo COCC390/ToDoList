@@ -3,13 +3,13 @@ package com.bc.secretnoteandtodo.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
+import android.util.Log;
 
-import com.bc.secretnoteandtodo.database.model.ToDo;
+import com.bc.secretnoteandtodo.database.model.User;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,21 +18,21 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseHelperForToDoTask extends SQLiteOpenHelper
+public class DBHelper extends SQLiteOpenHelper
 {
     private static final int VERSION = 1;
     private static String DB_PATH = "";
     private static final String NAME = "Mobile.db";
-    private static final String TODO_TASK_TABLE = "Todo";
+    private static final String TABLE_NAME = "User";
     private static final String ID = "ID";
-    private static final String TITLE = "Title";
-    private static final String STATUS = "Status";
+    private static final String USERNAME = "Username";
+    private static final String PASSWORD = "Password";
 
     private final Context context;
 
     private SQLiteDatabase db;
 
-    public DatabaseHelperForToDoTask(Context context)
+    public DBHelper(Context context)
     {
         super(context, NAME, null, VERSION);
 
@@ -93,19 +93,13 @@ public class DatabaseHelperForToDoTask extends SQLiteOpenHelper
         myInput.close();
     }
 
-//    public void openDatabase() throws SQLException
-//    {
-//        String myPath = DB_PATH + NAME;
-//        db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-//    }
-
     public void createDataBase() throws IOException
     {
         boolean dbExist = checkDataBase();
         if (dbExist)
         {
         } else
-            {
+        {
             this.getReadableDatabase();
             try
             {
@@ -126,54 +120,45 @@ public class DatabaseHelperForToDoTask extends SQLiteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-//        if (newVersion > oldVersion) {
-//            try {
-//                copyDataBase();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        if (newVersion > oldVersion)
+        {
+            try
+            {
+                copyDataBase();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
-
-//    @Override
-//    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
-//    {
-//        db.setVersion(oldVersion);
-//    }
 
     public void openDatabase()
     {
         db = this.getWritableDatabase();
     }
 
-    public void insertTask(ToDo task)
+    /*===========================Function for signup // register ===========================*/
+    /*========================================Signup========================================*/
+    public List<User> getAllUsers()
     {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(TITLE, task.getTitle());
-        contentValues.put(STATUS, 0);
-        db.insert(TODO_TASK_TABLE, null, contentValues);
-    }
-
-    public List<ToDo> getAllTasks()
-    {
-        List<ToDo> tasksList = new ArrayList<>();
+        List<User> userList = new ArrayList<>();
         SQLiteDatabase readDb = this.getReadableDatabase();
 
         Cursor cursor = null;
         readDb.beginTransaction();
         try
         {
-            cursor = db.query(TODO_TASK_TABLE, null, null, null, null, null, null);
+            cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
             if(cursor != null)
             {
                 if(cursor.moveToFirst())
                 {
                     do {
-                        ToDo task = new ToDo();
-                        task.setId(cursor.getInt(cursor.getColumnIndexOrThrow(ID)));
-                        task.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
-                        task.setStatus(cursor.getInt(cursor.getColumnIndexOrThrow(STATUS)));
-                        tasksList.add(task);
+                        User user = new User();
+                        user.setID(cursor.getInt(cursor.getColumnIndexOrThrow(ID)));
+                        user.setUsername(cursor.getString(cursor.getColumnIndexOrThrow(USERNAME)));
+                        user.setPassword(cursor.getString(cursor.getColumnIndexOrThrow(PASSWORD)));
+                        userList.add(user);
                     }
                     while (cursor.moveToNext());
                 }
@@ -185,25 +170,33 @@ public class DatabaseHelperForToDoTask extends SQLiteOpenHelper
             assert cursor != null;
             cursor.close();
         }
-        return tasksList;
+        return  userList;
     }
 
-    public void updateStatus(int id, int status)
+    public boolean checkSignUp(String userName, String password, List<User> userList)
+    {
+        boolean signUp = false;
+        for (User item : userList)
+        {
+            String userNameInList = item.getUsername().trim();
+            Log.d("List account", "item" + item.getUsername());
+            if(userNameInList.equals(userName))
+            {
+                if(item.getPassword().equals(password))
+                {
+                    signUp = true;
+                }
+                break;
+            }
+        }
+        return signUp;
+    }
+
+    public void addNewUser(User user)
     {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(STATUS, status);
-        db.update(TODO_TASK_TABLE, contentValues, ID + "=?", new String[] {String.valueOf(id)});
-    }
-
-    public void updateTask(int id, String task)
-    {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(TITLE, task);
-        db.update(TODO_TASK_TABLE, contentValues, ID + "=?",  new String[] {String.valueOf(id)});
-    }
-
-    public void deleteTask(int id)
-    {
-        db.delete(TODO_TASK_TABLE, ID + "=?", new String[] {String.valueOf(id)});
+        contentValues.put(USERNAME, user.getUsername());
+        contentValues.put(PASSWORD, user.getPassword());
+        db.insert(TABLE_NAME, null, contentValues);
     }
 }

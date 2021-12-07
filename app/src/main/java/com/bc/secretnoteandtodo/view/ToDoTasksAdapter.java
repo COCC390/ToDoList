@@ -3,7 +3,6 @@ package com.bc.secretnoteandtodo.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import com.bc.secretnoteandtodo.CreateNewTask;
 import com.bc.secretnoteandtodo.R;
 import com.bc.secretnoteandtodo.database.DatabaseHelperForToDoTask;
 import com.bc.secretnoteandtodo.database.model.Note;
-
 import com.bc.secretnoteandtodo.database.model.ToDo;
 
 import java.util.List;
@@ -102,7 +100,7 @@ public class ToDoTasksAdapter extends RecyclerView.Adapter<ToDoTasksAdapter.View
         Bundle bundle = new Bundle();
         bundle.putInt("id", item.getId());
         bundle.putString("task", item.getTitle());
-
+        Log.d("title" , item.getTitle().toString());
         CreateNewTask fragment = new CreateNewTask();
         fragment.setArguments(bundle);
         fragment.show(allToDoActivity.getSupportFragmentManager(), CreateNewTask.TAG);
