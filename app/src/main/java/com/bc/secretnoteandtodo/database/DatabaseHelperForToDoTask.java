@@ -29,6 +29,7 @@ public class DatabaseHelperForToDoTask extends SQLiteOpenHelper
     private static final String STATUS = "Status";
     private static final String USERID = "UserId";
 
+
     private final Context context;
 
     private SQLiteDatabase db;

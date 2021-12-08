@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.util.Log;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bc.secretnoteandtodo.database.DBHelper;
+
 import com.bc.secretnoteandtodo.view.AllNotes;
 import com.bc.secretnoteandtodo.view.MainActivity;
 
@@ -25,6 +28,7 @@ public class UserSetting extends AppCompatActivity implements View.OnClickListen
     int currentID;
 
     boolean isCurrentEqualRef, isNewEqualRePass;
+
 
     DBHelper db;
 
@@ -46,11 +50,13 @@ public class UserSetting extends AppCompatActivity implements View.OnClickListen
         btnChangePassword.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
         btnBack.setOnClickListener(this);
+
     }
 
     private void LinkToView()
     {
         btnBack = (Button) findViewById(R.id.btnBack);
+
         btnChangePassword = (Button) findViewById(R.id.btnChangePassword);
         btnLogout = (Button) findViewById(R.id.btnLogout);
         etCurrentPassword = (EditText) findViewById(R.id.etCurrentPassword);
@@ -106,6 +112,7 @@ public class UserSetting extends AppCompatActivity implements View.OnClickListen
             isEqual = true;
         }
         return isEqual;
+
     }
 
     boolean CheckPassAndRePass()

@@ -16,9 +16,11 @@
         android:background="@drawable/btnbg"
         android:text="LOG OUT ->"
         app:backgroundTint="#FF1100"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnChangePassword" />
+
 
     <Button
         android:id="@+id/btnBack"
@@ -32,7 +34,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/etCurrentPassword"
         android:layout_width="match_parent"
@@ -105,7 +106,9 @@
         android:layout_marginTop="50dp"
         android:background="@drawable/btnbg"
         android:text="CHANGE PASSWORD"
+
         app:backgroundTint="@color/colorAccent"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etChangeRePassword" />

@@ -100,6 +100,7 @@ public class ToDoTasksAdapter extends RecyclerView.Adapter<ToDoTasksAdapter.View
         Bundle bundle = new Bundle();
         bundle.putInt("id", item.getId());
         bundle.putString("task", item.getTitle());
+        Log.d("title" , item.getTitle().toString());
         CreateNewTask fragment = new CreateNewTask();
         fragment.setArguments(bundle);
         fragment.show(allToDoActivity.getSupportFragmentManager(), CreateNewTask.TAG);

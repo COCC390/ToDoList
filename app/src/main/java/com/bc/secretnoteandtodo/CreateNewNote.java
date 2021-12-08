@@ -121,6 +121,7 @@ public class CreateNewNote extends BottomSheetDialogFragment
                 {
                     Note note = new Note();
                     note.setContent(text);
+
                     note.setUserId(currentId);
                     Log.d("item content here", String.valueOf(note.getUserId()));
                     db.insertNote(note);

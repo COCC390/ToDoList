@@ -15,6 +15,7 @@ import com.bc.secretnoteandtodo.CreateNewTask;
 import com.bc.secretnoteandtodo.R;
 import com.bc.secretnoteandtodo.UserSetting;
 import com.bc.secretnoteandtodo.database.DBHelper;
+
 import com.bc.secretnoteandtodo.database.DatabaseHelperForToDoTask;
 import com.bc.secretnoteandtodo.database.model.ToDo;
 import com.bc.secretnoteandtodo.utils.DialogCloseListener;
@@ -50,6 +51,7 @@ public class AllToDo extends AppCompatActivity implements View.OnClickListener, 
         currentId = userDb.getCurrentID();
         CreateNewTask.currentId = currentId;
 
+
         try {
             db.createDataBase();
         } catch (IOException e)
@@ -70,10 +72,12 @@ public class AllToDo extends AppCompatActivity implements View.OnClickListener, 
         itemTouchHelper.attachToRecyclerView(rvTasks);
 
         toDoTasksList = db.getAllTasks();
+
         toDoTasksFilterList = NoteListFilter(toDoTasksList);
 
         Collections.reverse(toDoTasksFilterList);
         toDoTasksAdapter.setTasks(toDoTasksFilterList);
+
 
         btnNote.setOnClickListener(this);
         btnAccount.setOnClickListener(this);
@@ -102,6 +106,7 @@ public class AllToDo extends AppCompatActivity implements View.OnClickListener, 
         return toDoList;
     }
 
+
     @Override
     public void onClick(View v)
     {
@@ -116,6 +121,7 @@ public class AllToDo extends AppCompatActivity implements View.OnClickListener, 
         }
         if(v.getId() == R.id.btn_account)
         {
+
            Intent intent = new Intent(AllToDo.this, UserSetting.class);
            startActivity(intent);
         }

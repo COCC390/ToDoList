@@ -33,6 +33,7 @@ public class DBHelper extends SQLiteOpenHelper
     private static String userName;
     private static String password;
 
+
     private SQLiteDatabase db;
 
     public DBHelper(Context context)
@@ -188,9 +189,11 @@ public class DBHelper extends SQLiteOpenHelper
                 if(item.getPassword().equals(password))
                 {
                     signUp = true;
+
                     setCurrentID(item.getID());
                     setCurrentUserName(item.getUsername());
                     setCurrentPassword(item.getPassword());
+
                 }
                 break;
             }
@@ -242,4 +245,5 @@ public class DBHelper extends SQLiteOpenHelper
         contentValues.put(PASSWORD, newPassword);
         db.update(TABLE_NAME, contentValues, ID + "=?",  new String[] {String.valueOf(id)});
     }
+
 }

@@ -15,11 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bc.secretnoteandtodo.CreateNewNote;
 import com.bc.secretnoteandtodo.R;
+
 import com.bc.secretnoteandtodo.UserSetting;
 import com.bc.secretnoteandtodo.database.DBHelper;
+
 import com.bc.secretnoteandtodo.database.DatabaseHelper;
 import com.bc.secretnoteandtodo.database.model.Note;
 import com.bc.secretnoteandtodo.utils.DialogCloseListener;
+import com.bc.secretnoteandtodo.utils.MyDividerItemDecoration;
 import com.bc.secretnoteandtodo.utils.RecyclerTouchListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -75,10 +78,12 @@ public class AllNotes extends AppCompatActivity implements View.OnClickListener,
         itemTouchHelper.attachToRecyclerView(rvNotes);
 
         notesList = db.getAllNotes();
+
         notesListFilter = NoteListFilter(notesList);
 
         Collections.reverse(notesListFilter);
         notesAdapter.setNotes(notesListFilter);
+
 //        LoadNote();
 
         btnToDo.setOnClickListener(this);
@@ -100,6 +105,7 @@ public class AllNotes extends AppCompatActivity implements View.OnClickListener,
             }
         }
         return noteList;
+
     }
 
     private void LinkToView()
@@ -121,23 +127,15 @@ public class AllNotes extends AppCompatActivity implements View.OnClickListener,
        if(view.getId() == R.id.fab)
        {
             CreateNewNote.newInstance().show(getSupportFragmentManager(), CreateNewNote.TAG);
+            LoadNote();
        }
        if(view.getId() == R.id.btn_account)
        {
            Intent intent = new Intent(AllNotes.this, UserSetting.class);
+
            startActivity(intent);
        }
     }
-
-//    private void toggleEmptyNotes() {
-//        // you can check notesList.size() > 0
-//
-//        if (notesAdapter.getItemCount() > 0) {
-//            noNotesView.setVisibility(View.GONE);
-//        } else {
-//            noNotesView.setVisibility(View.VISIBLE);
-//        }
-//    }
 
     @Override
     public void handleDialogClose(DialogInterface dialogInterface)
@@ -146,6 +144,15 @@ public class AllNotes extends AppCompatActivity implements View.OnClickListener,
         notesListFilter = NoteListFilter(notesList);
         Collections.reverse(notesListFilter);
         notesAdapter.setNotes(notesListFilter);
+        notesAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void handleDialogClose(DialogInterface dialogInterface)
+    {
+        notesList = db.getAllNotes();
+        Collections.reverse(notesList);
+        notesAdapter.setNotes(notesList);
         notesAdapter.notifyDataSetChanged();
     }
 }

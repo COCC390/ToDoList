@@ -32,6 +32,7 @@ public class CreateNewTask extends BottomSheetDialogFragment
 
     public static int currentId;
 
+
     public static CreateNewTask newInstance()
     {
         return new CreateNewTask();
