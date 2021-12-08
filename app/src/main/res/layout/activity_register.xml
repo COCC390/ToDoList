@@ -4,28 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MainActivity"
-    android:background="@drawable/bb">
-
-    <Button
-        android:id="@+id/btnSignup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etPassword"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/btnbg"
-        android:text="Don't have an Account? Sign Up"
-        app:backgroundTint="@color/teal_200"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
+    android:background="@drawable/bb"
+    tools:context=".Register">
 
     <EditText
-        android:id="@+id/etUsername"
+        android:id="@+id/etUserName1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_marginTop="50dp"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="30dp"
         android:background="@drawable/inputbg"
         android:drawableLeft="@drawable/ic_person"
         android:drawablePadding="10dp"
@@ -34,18 +21,18 @@
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
-        android:id="@+id/etPassword"
+        android:id="@+id/etPassword1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etUsername"
-        android:layout_marginTop="30dp"
+        android:layout_below="@+id/etUserName1"
+        android:layout_marginTop="20dp"
         android:background="@drawable/inputbg"
         android:drawableLeft="@drawable/ic_security"
         android:drawablePadding="10dp"
@@ -55,36 +42,71 @@
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
         android:password="true"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/etUserName1" />
+
+    <EditText
+        android:id="@+id/etRePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPassword1"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/inputbg"
+        android:drawableLeft="@drawable/ic_security"
+        android:drawablePadding="10dp"
+        android:hint="Retype Password"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:password="true"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword1" />
 
     <Button
-        android:id="@+id/btnSignIn"
+        android:id="@+id/btnSignUp1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etPassword"
-        android:layout_marginTop="50dp"
+        android:layout_below="@+id/etRePassword"
+        android:layout_marginTop="60dp"
         android:background="@drawable/btnbg"
-        android:text="Sign in"
+        android:text="Register"
         app:backgroundTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/etRePassword" />
+
+    <Button
+        android:id="@+id/btnSignIn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnSignUp1"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btnbg"
+        android:text="Existing user! Go to Sign in page"
+        app:backgroundTint="@color/teal_200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignUp1" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="123dp"
+        android:id="@+id/textView2"
+        android:layout_width="171dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="150dp"
-        android:text="LOGIN"
+        android:layout_marginTop="120dp"
+        android:text="Register"
         android:textAlignment="center"
         android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
