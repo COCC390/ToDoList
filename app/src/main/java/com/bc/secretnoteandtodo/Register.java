@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 
 import com.bc.secretnoteandtodo.database.DBHelper;
 import com.bc.secretnoteandtodo.database.model.User;
@@ -65,6 +67,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 user.setUsername(userName);
                 user.setPassword(password);
                 db.addNewUser(user);
+
+
+                Toast.makeText(Register.this, "Register succeed!", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(Register.this, MainActivity.class);
                 startActivity(intent);

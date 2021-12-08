@@ -71,7 +71,8 @@
 
     <Button
         android:id="@+id/btnSignUp1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
         android:layout_below="@+id/etRePassword"
         android:layout_marginTop="60dp"
@@ -84,7 +85,8 @@
 
     <Button
         android:id="@+id/btnSignIn1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnSignUp1"
         android:layout_marginTop="20dp"

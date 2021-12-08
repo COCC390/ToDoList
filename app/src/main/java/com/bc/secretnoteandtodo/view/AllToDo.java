@@ -14,6 +14,9 @@ import android.widget.Button;
 
 import com.bc.secretnoteandtodo.CreateNewTask;
 import com.bc.secretnoteandtodo.R;
+
+import com.bc.secretnoteandtodo.UserSetting;
+
 import com.bc.secretnoteandtodo.database.DatabaseHelperForToDoTask;
 import com.bc.secretnoteandtodo.database.model.ToDo;
 import com.bc.secretnoteandtodo.utils.DialogCloseListener;
@@ -100,17 +103,12 @@ public class AllToDo extends AppCompatActivity implements View.OnClickListener, 
         if(v.getId() == R.id.fabToDo)
         {
             CreateNewTask.newInstance().show(getSupportFragmentManager(), CreateNewTask.TAG);
-//            LoadTask();
-//            if(toDoTasksList.size() > 0)
-//            {
-//                Log.d("myTag", toDoTasksList.get(0).getTitle());
-//            }
         }
         if(v.getId() == R.id.btn_account)
         {
             // use this to switch to account class!!!
-//           Intent intent = new Intent(AllNotes.this, Account.class);
-//           startActivity(intent);
+           Intent intent = new Intent(AllToDo.this, UserSetting.class);
+           startActivity(intent);
         }
     }
 

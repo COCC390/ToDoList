@@ -18,6 +18,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
+
+    public static int currentUserID;
+
     EditText etUserName, etPassword;
     Button btnSignIn, btnSignUp;
 

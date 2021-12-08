@@ -29,6 +29,10 @@ public class DBHelper extends SQLiteOpenHelper
     private static final String PASSWORD = "Password";
 
     private final Context context;
+0
+    private static int id;
+    private static String userName;
+
 
     private SQLiteDatabase db;
 
@@ -179,17 +183,41 @@ public class DBHelper extends SQLiteOpenHelper
         for (User item : userList)
         {
             String userNameInList = item.getUsername().trim();
-            Log.d("List account", "item" + item.getUsername());
+
             if(userNameInList.equals(userName))
             {
                 if(item.getPassword().equals(password))
                 {
                     signUp = true;
+
+                    setCurrentID(item.getID());
+                    setCurrentUserName(item.getUsername());
+
                 }
                 break;
             }
         }
         return signUp;
+    }
+
+    public void setCurrentID(int id)
+    {
+        this.id = id;
+    }
+
+    public int getCurrentID()
+    {
+        return id;
+    }
+
+    public void setCurrentUserName(String userName)
+    {
+        this.userName = userName;
+    }
+
+    public String getCurrentUserName()
+    {
+        return userName;
     }
 
     public void addNewUser(User user)
@@ -199,4 +227,12 @@ public class DBHelper extends SQLiteOpenHelper
         contentValues.put(PASSWORD, user.getPassword());
         db.insert(TABLE_NAME, null, contentValues);
     }
+
+    public void updateUser(int id, String newPassword)
+    {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(PASSWORD, newPassword);
+        db.update(TABLE_NAME, contentValues, ID + "=?",  new String[] {String.valueOf(id)});
+    }
+
 }

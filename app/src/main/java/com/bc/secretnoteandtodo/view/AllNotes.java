@@ -23,6 +23,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bc.secretnoteandtodo.CreateNewNote;
 import com.bc.secretnoteandtodo.CreateNewTask;
 import com.bc.secretnoteandtodo.R;
+
+import com.bc.secretnoteandtodo.UserSetting;
+
 import com.bc.secretnoteandtodo.database.DatabaseHelper;
 import com.bc.secretnoteandtodo.database.DatabaseHelperForToDoTask;
 import com.bc.secretnoteandtodo.database.model.Note;
@@ -121,7 +124,8 @@ public class AllNotes extends AppCompatActivity implements View.OnClickListener,
        if(view.getId() == R.id.btn_account)
        {
 //              use this to switch to account class!!!
-           Intent intent = new Intent(AllNotes.this, MainActivity.class);
+           Intent intent = new Intent(AllNotes.this, UserSetting.class);
+
            startActivity(intent);
        }
     }
