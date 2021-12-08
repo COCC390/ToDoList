@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
+import com.bc.secretnoteandtodo.database.DBHelper;
 import com.bc.secretnoteandtodo.database.DatabaseHelper;
 import com.bc.secretnoteandtodo.database.model.Note;
 import com.bc.secretnoteandtodo.utils.DialogCloseListener;
@@ -30,6 +31,8 @@ public class CreateNewNote extends BottomSheetDialogFragment
     private EditText etNewNote;
     private Button btnNewNote;
     private DatabaseHelper db;
+
+    public static int currentId;
 
     public static CreateNewNote newInstance()
     {
@@ -118,6 +121,9 @@ public class CreateNewNote extends BottomSheetDialogFragment
                 {
                     Note note = new Note();
                     note.setContent(text);
+
+                    note.setUserId(currentId);
+                    Log.d("item content here", String.valueOf(note.getUserId()));
                     db.insertNote(note);
                 }
                 dismiss();

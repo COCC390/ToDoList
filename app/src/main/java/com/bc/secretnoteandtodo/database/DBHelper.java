@@ -29,9 +29,9 @@ public class DBHelper extends SQLiteOpenHelper
     private static final String PASSWORD = "Password";
 
     private final Context context;
-0
     private static int id;
     private static String userName;
+    private static String password;
 
 
     private SQLiteDatabase db;
@@ -192,6 +192,7 @@ public class DBHelper extends SQLiteOpenHelper
 
                     setCurrentID(item.getID());
                     setCurrentUserName(item.getUsername());
+                    setCurrentPassword(item.getPassword());
 
                 }
                 break;
@@ -218,6 +219,16 @@ public class DBHelper extends SQLiteOpenHelper
     public String getCurrentUserName()
     {
         return userName;
+    }
+
+    public void setCurrentPassword(String password)
+    {
+        this.password = password;
+    }
+
+    public String getCurrentPassword()
+    {
+        return password;
     }
 
     public void addNewUser(User user)

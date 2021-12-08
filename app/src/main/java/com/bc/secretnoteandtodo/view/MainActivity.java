@@ -2,6 +2,9 @@ package com.bc.secretnoteandtodo.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import android.view.KeyEvent;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +21,16 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
+    public static int currentUserID;
+    EditText etUserName, etPassword;
+    Button btnSignIn, btnSignUp;
+
+    DBHelper db;
+
+    private String userName, password;
+    private boolean signUpSuccessful;
+
+    private List<User> userList;
 
     public static int currentUserID;
 
@@ -56,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnSignIn.setOnClickListener(this);
         btnSignUp.setOnClickListener(this);
-    }
+
 
     private void LinkToView()
     {
@@ -65,6 +78,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
         btnSignUp = (Button) findViewById(R.id.btnSignup);
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 
     @Override
     public void onClick(View v)

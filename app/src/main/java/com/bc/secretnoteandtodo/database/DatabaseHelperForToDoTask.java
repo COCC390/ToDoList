@@ -27,6 +27,8 @@ public class DatabaseHelperForToDoTask extends SQLiteOpenHelper
     private static final String ID = "ID";
     private static final String TITLE = "Title";
     private static final String STATUS = "Status";
+    private static final String USERID = "UserId";
+
 
     private final Context context;
 
@@ -151,6 +153,7 @@ public class DatabaseHelperForToDoTask extends SQLiteOpenHelper
         ContentValues contentValues = new ContentValues();
         contentValues.put(TITLE, task.getTitle());
         contentValues.put(STATUS, 0);
+        contentValues.put(USERID, task.getUserId());
         db.insert(TODO_TASK_TABLE, null, contentValues);
     }
 
@@ -173,6 +176,7 @@ public class DatabaseHelperForToDoTask extends SQLiteOpenHelper
                         task.setId(cursor.getInt(cursor.getColumnIndexOrThrow(ID)));
                         task.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
                         task.setStatus(cursor.getInt(cursor.getColumnIndexOrThrow(STATUS)));
+                        task.setUserId(cursor.getInt(cursor.getColumnIndexOrThrow(USERID)));
                         tasksList.add(task);
                     }
                     while (cursor.moveToNext());

@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String NOTE_TABLE = "Note";
     private static final String ID = "ID";
     private static final String CONTENT = "Content";
-//    private static final String CREATE_TODO_TABLE = "CREATE TABLE " + TODO_TASK_TABLE + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TITLE + " TEXT," + STATUS + " INTEGER)";
+    private static final String USERID = "UserId";
 
     private final Context context;
 
@@ -159,6 +159,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     {
         ContentValues contentValues = new ContentValues();
         contentValues.put(CONTENT, note.getContent());
+        contentValues.put(USERID, note.getUserId());
         db.insert(NOTE_TABLE, null, contentValues);
     }
 
@@ -180,6 +181,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         Note note = new Note();
                         note.setId(cursor.getInt(cursor.getColumnIndexOrThrow(ID)));
                         note.setContent(cursor.getString(cursor.getColumnIndexOrThrow(CONTENT)));
+                        note.setUserId(cursor.getInt(cursor.getColumnIndexOrThrow(USERID)));
                         noteList.add(note);
                     }
                     while (cursor.moveToNext());

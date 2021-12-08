@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import androidx.core.content.ContextCompat;
 
+import com.bc.secretnoteandtodo.database.DBHelper;
 import com.bc.secretnoteandtodo.database.DatabaseHelperForToDoTask;
 import com.bc.secretnoteandtodo.database.model.ToDo;
 import com.bc.secretnoteandtodo.utils.DialogCloseListener;
@@ -28,6 +29,9 @@ public class CreateNewTask extends BottomSheetDialogFragment
     private Button btnNewTask;
     private DatabaseHelperForToDoTask db;
     private EditText etNewTask;
+
+    public static int currentId;
+
 
     public static CreateNewTask newInstance()
     {
@@ -116,6 +120,7 @@ public class CreateNewTask extends BottomSheetDialogFragment
                     ToDo todoTask = new ToDo();
                     todoTask.setTitle(text);
                     todoTask.setStatus(0);
+                    todoTask.setUserId(currentId);
                     db.insertTask(todoTask);
                 }
                 dismiss();
