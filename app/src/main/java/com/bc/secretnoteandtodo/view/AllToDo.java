@@ -14,7 +14,9 @@ import android.widget.Button;
 
 import com.bc.secretnoteandtodo.CreateNewTask;
 import com.bc.secretnoteandtodo.R;
+
 import com.bc.secretnoteandtodo.UserSetting;
+
 import com.bc.secretnoteandtodo.database.DatabaseHelperForToDoTask;
 import com.bc.secretnoteandtodo.database.model.ToDo;
 import com.bc.secretnoteandtodo.utils.DialogCloseListener;
