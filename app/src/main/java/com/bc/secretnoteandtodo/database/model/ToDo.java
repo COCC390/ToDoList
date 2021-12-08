@@ -2,7 +2,7 @@ package com.bc.secretnoteandtodo.database.model;
 
 public class ToDo
 {
-    private int id, status;
+    private int id, status, userId;
     private String title;
 
     public int getId()
@@ -33,5 +33,13 @@ public class ToDo
     public void setTitle(String title)
     {
         this.title = title;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

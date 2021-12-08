@@ -2,7 +2,7 @@ package com.bc.secretnoteandtodo.database.model;
 
 public class Note
 {
-   private int id;
+   private int id, userId;
    private String content;
 
    public int getId()
@@ -24,4 +24,12 @@ public class Note
    {
         this.content = content;
    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }

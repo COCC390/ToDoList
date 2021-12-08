@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import androidx.core.content.ContextCompat;
 
+import com.bc.secretnoteandtodo.database.DBHelper;
 import com.bc.secretnoteandtodo.database.DatabaseHelperForToDoTask;
 import com.bc.secretnoteandtodo.database.model.ToDo;
 import com.bc.secretnoteandtodo.utils.DialogCloseListener;
@@ -25,9 +26,11 @@ public class CreateNewTask extends BottomSheetDialogFragment
 {
     public static final String TAG = "ActionBottomDialog";
 
-    private EditText etNewTask;
     private Button btnNewTask;
     private DatabaseHelperForToDoTask db;
+    private EditText etNewTask;
+
+    public static int currentId;
 
     public static CreateNewTask newInstance()
     {
@@ -56,21 +59,23 @@ public class CreateNewTask extends BottomSheetDialogFragment
         etNewTask = getView().findViewById(R.id.etNewTask);
         btnNewTask = getView().findViewById(R.id.btnCreateNewTask);
 
-        db = new DatabaseHelperForToDoTask(getActivity());
-        db.openDatabase();
-
         boolean isUpdate = false;
+
         final Bundle bundle = getArguments();
         if(bundle != null)
         {
             isUpdate = true;
             String task = bundle.getString("task");
             etNewTask.setText(task);
+            assert task != null;
             if(task.length() > 0)
             {
                 btnNewTask.setTextColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
             }
         }
+
+        db = new DatabaseHelperForToDoTask(getActivity());
+        db.openDatabase();
 
         etNewTask.addTextChangedListener(new TextWatcher()
         {
@@ -101,23 +106,21 @@ public class CreateNewTask extends BottomSheetDialogFragment
         boolean finalIsUpdate = isUpdate;
         btnNewTask.setOnClickListener(new View.OnClickListener()
         {
-//
             @Override
             public void onClick(View v)
             {
                 String text = etNewTask.getText().toString();
                 if(finalIsUpdate)
                 {
-                    db.updateTask(bundle.getInt("ID"), text);
+                    db.updateTask(bundle.getInt("id"), text);
                 }
                 else
                 {
-//                    Log.d("myTag", "This is my message");
                     ToDo todoTask = new ToDo();
                     todoTask.setTitle(text);
                     todoTask.setStatus(0);
+                    todoTask.setUserId(currentId);
                     db.insertTask(todoTask);
-//                    Log.d("myTag", todoTask.getTitle().toString());
                 }
                 dismiss();
             }

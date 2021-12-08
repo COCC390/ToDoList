@@ -1,14 +1,10 @@
 package com.bc.secretnoteandtodo.utils;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -20,14 +16,14 @@ import com.bc.secretnoteandtodo.R;
 import com.bc.secretnoteandtodo.view.NotesAdapter;
 import com.bc.secretnoteandtodo.view.ToDoTasksAdapter;
 
-public class RecyclerTouchListener extends ItemTouchHelper.SimpleCallback
+public class ToDoRecyclerTouchListener extends ItemTouchHelper.SimpleCallback
 {
-    private NotesAdapter notesAdapter;
+    private ToDoTasksAdapter toDoTasksAdapter;
 
-    public RecyclerTouchListener(NotesAdapter notesAdapter)
+    public ToDoRecyclerTouchListener(ToDoTasksAdapter toDoTasksAdapter)
     {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
-        this.notesAdapter = notesAdapter;
+        this.toDoTasksAdapter = toDoTasksAdapter;
     }
 
     @Override
@@ -42,23 +38,23 @@ public class RecyclerTouchListener extends ItemTouchHelper.SimpleCallback
         final int position = viewHolder.getAdapterPosition();
         if(direction == ItemTouchHelper.LEFT)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(notesAdapter.getContext());
-            builder.setTitle("Delete Note");
-            builder.setMessage("Are you sure you want to delete this note");
+            AlertDialog.Builder builder = new AlertDialog.Builder(toDoTasksAdapter.getContext());
+            builder.setTitle("Delete Task");
+            builder.setMessage("Are you sure you want to delete this task");
             builder.setPositiveButton("Confirm",
                     new DialogInterface.OnClickListener()
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which)
                         {
-                            notesAdapter.deleteItem(position);
+                            toDoTasksAdapter.deleteItem(position);
                         }
                     });
             builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener()
             {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    notesAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                    toDoTasksAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
                 }
             });
 
@@ -67,7 +63,7 @@ public class RecyclerTouchListener extends ItemTouchHelper.SimpleCallback
         }
         else
         {
-            notesAdapter.editItem(position);
+            toDoTasksAdapter.editItem(position);
         }
     }
 
@@ -84,13 +80,13 @@ public class RecyclerTouchListener extends ItemTouchHelper.SimpleCallback
 
         if(dX > 0)
         {
-            icon = ContextCompat.getDrawable(notesAdapter.getContext(), R.drawable.ic_baseline_edit);
-            background = new ColorDrawable(ContextCompat.getColor(notesAdapter.getContext(), R.color.colorPrimaryDark));
+            icon = ContextCompat.getDrawable(toDoTasksAdapter.getContext(), R.drawable.ic_baseline_edit);
+            background = new ColorDrawable(ContextCompat.getColor(toDoTasksAdapter.getContext(), R.color.colorPrimaryDark));
         }
         else
         {
-            icon = ContextCompat.getDrawable(notesAdapter.getContext(), R.drawable.ic_baseline_delete);
-            background = new ColorDrawable(ContextCompat.getColor(notesAdapter.getContext(), R.color.colorPrimaryDark));
+            icon = ContextCompat.getDrawable(toDoTasksAdapter.getContext(), R.drawable.ic_baseline_delete);
+            background = new ColorDrawable(ContextCompat.getColor(toDoTasksAdapter.getContext(), R.color.colorPrimaryDark));
         }
 
         int iconMargin = (itemView.getHeight() - icon.getIntrinsicHeight()) / 2;

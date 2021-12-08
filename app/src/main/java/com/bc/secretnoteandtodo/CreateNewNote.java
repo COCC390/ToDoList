@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
+import com.bc.secretnoteandtodo.database.DBHelper;
 import com.bc.secretnoteandtodo.database.DatabaseHelper;
 import com.bc.secretnoteandtodo.database.model.Note;
 import com.bc.secretnoteandtodo.utils.DialogCloseListener;
@@ -30,6 +31,8 @@ public class CreateNewNote extends BottomSheetDialogFragment
     private EditText etNewNote;
     private Button btnNewNote;
     private DatabaseHelper db;
+
+    public static int currentId;
 
     public static CreateNewNote newInstance()
     {
@@ -58,21 +61,23 @@ public class CreateNewNote extends BottomSheetDialogFragment
         etNewNote = getView().findViewById(R.id.etNewNote);
         btnNewNote = getView().findViewById(R.id.btnCreateNewNote);
 
-        db = new DatabaseHelper(getActivity());
-        db.openDatabase();
-
         boolean isUpdate = false;
+
         final Bundle bundle = getArguments();
         if(bundle != null)
         {
             isUpdate = true;
             String note = bundle.getString("note");
             etNewNote.setText(note);
+            assert note != null;
             if(note.length() > 0)
             {
                 etNewNote.setTextColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
             }
         }
+
+        db = new DatabaseHelper(getActivity());
+        db.openDatabase();
 
         etNewNote.addTextChangedListener(new TextWatcher()
         {
@@ -110,15 +115,15 @@ public class CreateNewNote extends BottomSheetDialogFragment
                 String text = etNewNote.getText().toString();
                 if(finalIsUpdate)
                 {
-                    db.updateNote(bundle.getInt("ID"), text);
+                    db.updateNote(bundle.getInt("id"), text);
                 }
                 else
                 {
-//                    Log.d("myTag", "This is my message");
                     Note note = new Note();
                     note.setContent(text);
-                    db.insertTask(note);
-                    Log.d("myTag", note.getContent().toString());
+                    note.setUserId(currentId);
+                    Log.d("item content here", String.valueOf(note.getUserId()));
+                    db.insertNote(note);
                 }
                 dismiss();
             }

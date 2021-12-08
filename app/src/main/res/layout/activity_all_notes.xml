@@ -4,29 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/notebg"
     tools:context=".view.AllToDo">
 
-    <include
-        layout="@layout/content_note"
-        android:background="#00DAC1" />
+<!--    <include-->
+<!--        layout="@layout/content_note"-->
+<!--        android:background="#00DAC1" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvNote"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:nestedScrollingEnabled="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--    android:id="@+id/fab"-->
-<!--    android:layout_width="wrap_content"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:layout_gravity="bottom|center"-->
-<!--    android:layout_margin="16dp"-->
-<!--    android:contentDescription="TODO"-->
-<!--    app:srcCompat="@drawable/ic_add_white_24dp"-->
-<!--    tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"-->
-<!--    />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

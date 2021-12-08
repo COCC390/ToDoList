@@ -2,6 +2,7 @@ package com.bc.secretnoteandtodo.view;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bc.secretnoteandtodo.CreateNewTask;
 import com.bc.secretnoteandtodo.R;
 import com.bc.secretnoteandtodo.database.DatabaseHelperForToDoTask;
+import com.bc.secretnoteandtodo.database.model.Note;
 import com.bc.secretnoteandtodo.database.model.ToDo;
 
 import java.util.List;
@@ -30,6 +32,8 @@ public class ToDoTasksAdapter extends RecyclerView.Adapter<ToDoTasksAdapter.View
         this.allToDoActivity = allToDo;
     }
 
+    @NonNull
+    @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_layout, parent, false);
@@ -80,6 +84,14 @@ public class ToDoTasksAdapter extends RecyclerView.Adapter<ToDoTasksAdapter.View
     {
         this.toDoList = toDoList;
         notifyDataSetChanged();
+    }
+
+    public void deleteItem(int position)
+    {
+        ToDo toDo = toDoList.get(position);
+        db.deleteTask(toDo.getId());
+        toDoList.remove(position);
+        notifyItemRemoved(position);
     }
 
     public void editItem(int position)
